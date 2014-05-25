@@ -29,6 +29,7 @@ public class TankScript : MonoBehaviour
 
 	private void HandleInput()
 	{
+		// movement
 		if (Input.GetKey("left"))
 		{
 			moveScript.direction = new Vector2(-1, 0);
@@ -40,6 +41,13 @@ public class TankScript : MonoBehaviour
 		else
 		{
 			moveScript.direction = Vector2.zero;
+		}
+
+		// firing
+		if (Input.GetKey("space"))
+		{
+			WeaponScript weaponScript = GetComponentInChildren<WeaponScript>();
+			weaponScript.Fire();
 		}
 	}
 }

@@ -4,7 +4,9 @@ using System.Collections;
 public class MoveScript : MonoBehaviour 
 {
 	// designer variables
-	public int speed;
+	public float speed;
+
+	[HideInInspector]
 	public Vector2 direction;
 
 	private Vector2 movement;
