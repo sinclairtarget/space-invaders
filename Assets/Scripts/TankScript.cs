@@ -3,16 +3,28 @@ using System.Collections;
 
 public class TankScript : MonoBehaviour 
 {
+	public float leftBound;
+	public float rightBound;
+
 	private MoveScript moveScript;
 
 	public void Start()
 	{
 		moveScript = GetComponent<MoveScript>();
+
+		if (leftBound > rightBound)
+		{
+			Debug.LogError("left bound greater than right bound!");
+		}
 	}
 
 	public void Update()
 	{
 		HandleInput();
+
+		// make sure that tanks stays on screen
+		transform.position = new Vector2(Mathf.Clamp(transform.position.x, leftBound, rightBound),
+		                                 			 transform.position.y);
 	}
 
 	private void HandleInput()
