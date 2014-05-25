@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cc0d5518897544d7dbd545f10d9fcaf9
+guid: 03461357fdc7a4ff29d810b5e5628636
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -41,22 +41,13 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: squid_0
+    - name: zap_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-    - name: squid_1
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 16
-        width: 32
-        height: 32
+        x: 8
+        y: 0
+        width: 12
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
   spritePackingTag: 

@@ -22,7 +22,7 @@ public class WeaponScript : MonoBehaviour
 			cooldown -= Time.deltaTime;
 	}
 
-	public void Fire()
+	public void Fire(Vector2 direction)
 	{
 		if (cooldown <= 0)
 		{
@@ -39,7 +39,7 @@ public class WeaponScript : MonoBehaviour
 				Debug.LogError("moveScript is null");
 			}
 
-			moveScript.direction = new Vector2(0, 1);
+			moveScript.direction = direction;
 			moveScript.speed = muzzleVelocity;
 
 			// set shot range

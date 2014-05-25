@@ -7,10 +7,12 @@ public class TankScript : MonoBehaviour
 	public float rightBound;
 
 	private MoveScript moveScript;
+	private WeaponScript weaponScript;
 
 	public void Start()
 	{
 		moveScript = GetComponent<MoveScript>();
+		weaponScript = GetComponentInChildren<WeaponScript>();
 
 		if (leftBound > rightBound)
 		{
@@ -46,8 +48,7 @@ public class TankScript : MonoBehaviour
 		// firing
 		if (Input.GetKey("space"))
 		{
-			WeaponScript weaponScript = GetComponentInChildren<WeaponScript>();
-			weaponScript.Fire();
+			weaponScript.Fire(new Vector2(0, 1));
 		}
 	}
 }
