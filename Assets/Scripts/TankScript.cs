@@ -8,22 +8,27 @@ public class TankScript : MonoBehaviour
 
 	public int lives;
 
-	private MoveScript moveScript;
-	private WeaponScript weaponScript;
-	private SpriteRenderer spriteRenderer;
-
 	// death animation
+	public Sprite normalSprite;
 	public Sprite death1;
 	public Sprite death2;
 	public Sprite death3;
 
 	public float animSpeed; // frames per sec
 	public int animCycles; // number of times we cycle through animation
+
 	private bool dying;
 	private int cel;
 	private float celPeriod;
 	private float celTime; // secs in the current cel
 	private int cycleCount; // counter for cycles
+
+	private MoveScript moveScript;
+	private WeaponScript weaponScript;
+	private SpriteRenderer spriteRenderer;
+
+	private Vector2 startPos;
+	private float startSpeed;
 
 	public void Start()
 	{
@@ -41,6 +46,11 @@ public class TankScript : MonoBehaviour
 		{
 			Debug.LogError("left bound greater than right bound!");
 		}
+
+		GameManager.Instance.AdjustLives(lives);
+
+		startPos = transform.position;
+		startSpeed = moveScript.speed;
 	}
 
 	public void Update()
@@ -68,6 +78,8 @@ public class TankScript : MonoBehaviour
 		dying = true;
 		moveScript.speed = 0;
 		SoundEffectsHelper.Instance.PlayPlayerDeathSound();
+
+		GameManager.Instance.AdjustLives(lives);
 	}
 
 	private void HandleInput()
@@ -99,7 +111,15 @@ public class TankScript : MonoBehaviour
 
 		if (cycleCount == animCycles)
 		{
-			Destroy(this.gameObject);
+			// reset if we still have lives, otherwise end level
+			if (lives > 0)
+			{
+				Reset();
+			}
+			else
+			{
+				Application.LoadLevel("GameOver");
+			}
 			return;
 		}
 
@@ -130,5 +150,16 @@ public class TankScript : MonoBehaviour
 
 			celTime = celPeriod;
 		}
+	}
+
+	private void Reset()
+	{
+		dying = false;
+		spriteRenderer.sprite = normalSprite;
+		transform.position = startPos;
+		moveScript.speed = startSpeed;
+		cycleCount = 0;
+		celTime = 0;
+		cel = 1;
 	}
 }

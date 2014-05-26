@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 	private float UFOPeriod;
 	private float UFOTimer;
 
+	private int score;
+	private int lives;
+
 	void Awake()
 	{
 		// register the singleton
@@ -33,6 +36,8 @@ public class GameManager : MonoBehaviour
 
 		// some number around UFOPeriod
 		UFOTimer = UFOPeriod + UnityEngine.Random.Range(-UFOPeriod * 0.2f, UFOPeriod * 0.2f); 
+
+		score = 0;
 	}
 	
 	// Update is called once per frame
@@ -69,5 +74,18 @@ public class GameManager : MonoBehaviour
 			// some number around UFOPeriod
 			UFOTimer = UFOPeriod + UnityEngine.Random.Range(-UFOPeriod * 0.2f, UFOPeriod * 0.2f);
 		}
+	}
+
+	public void AddToScore(int amount)
+	{
+		score += amount;
+		GUIScript.Instance.UpdateScore(score);
+	}
+
+	public void AdjustLives(int newLives)
+	{
+		lives = newLives;
+
+		GUIScript.Instance.UpdateLives(lives);
 	}
 }

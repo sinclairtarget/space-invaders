@@ -12,6 +12,8 @@ public class EnemyScript : MonoBehaviour
 	public Sprite explosion;
 	public float explosionLength; // in seconds, time explosion sprite should be displayed
 
+	public int scoreValue;
+
 	private SpriteRenderer spriteRenderer;
 	private WeaponScript weaponScript;
 
@@ -31,12 +33,19 @@ public class EnemyScript : MonoBehaviour
 		{
 			return;
 		}
-		
+
+		// destroy the projectile
 		Destroy(coll.gameObject);
 
+		// play dying sound
 		SoundEffectsHelper.Instance.PlayAlienDeathSound();
-		
+
+		// update score
+		GameManager.Instance.AddToScore(scoreValue);
+
+		// change sprite to explosion sprite
 		spriteRenderer.sprite = explosion;
+
 		Destroy(this.gameObject, explosionLength);
 	}
 

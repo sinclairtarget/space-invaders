@@ -97,7 +97,8 @@ MonoBehaviour:
   open: {fileID: 21300000, guid: 4f69a963f5ad149c0a874499339c61b2, type: 3}
   closed: {fileID: 21300002, guid: 4f69a963f5ad149c0a874499339c61b2, type: 3}
   explosion: {fileID: 21300000, guid: fc1c7b5c7d791480db7f91a09c838693, type: 3}
-  explosionTime: .25
+  explosionLength: .25
+  scoreValue: 10
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -12,6 +12,7 @@ public class EnemyArrayScript : MonoBehaviour
 	// movement variables
 	public float leftBound;
 	public float rightBound;
+	public float lowerBound; // lower than this means player loses
 	public float dropDistance;
 	public float shiftDistance;
 	public float shiftSpeed; // shifts per second
@@ -29,6 +30,9 @@ public class EnemyArrayScript : MonoBehaviour
 	private float firingTime;
 	private float maxFiringPeriod;
 
+	private Vector2 originalStartingPos;
+	public GameObject originalArrayType;
+
 	// Use this for initialization
 	void Start() 
 	{
@@ -41,6 +45,8 @@ public class EnemyArrayScript : MonoBehaviour
 		firingTime = maxFiringPeriod;
 
 		turning = false;
+
+		originalStartingPos = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -62,6 +68,27 @@ public class EnemyArrayScript : MonoBehaviour
 
 		shiftTime -= Time.deltaTime;
 		firingTime -= Time.deltaTime;
+
+		// check for reset
+		bool needReset = true;
+		foreach (Transform child in transform)
+		{
+			if (child.transform.childCount > 0)
+			{
+				needReset = false;
+			}
+		}
+
+		if (needReset)
+		{
+			Reset();
+		}
+
+		// have the aliens got so low that player must lose?
+		if (transform.position.y < lowerBound)
+		{
+			Application.LoadLevel("GameOver");
+		}
 	}
 
 	private void MoveArray()
@@ -142,5 +169,12 @@ public class EnemyArrayScript : MonoBehaviour
 		}
 
 		firingAlien.GetComponent<EnemyScript>().Fire();
+	}
+
+	private void Reset()
+	{
+		GameObject newArray = (GameObject)Instantiate(originalArrayType);
+		newArray.transform.position = originalStartingPos - new Vector2(0, shiftDistance); // new array starts lower
+		Destroy(this.gameObject);
 	}
 }

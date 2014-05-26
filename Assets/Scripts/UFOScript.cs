@@ -3,6 +3,8 @@ using System.Collections;
 
 public class UFOScript : MonoBehaviour
 {
+	public int scoreValue;
+
 	[HideInInspector]
 	public float leftBound;
 	[HideInInspector]
@@ -56,8 +58,14 @@ public class UFOScript : MonoBehaviour
 		Destroy(coll.gameObject);
 		
 		GetComponent<SpriteRenderer>().sprite = explosion;
-		Destroy(this.gameObject, explosionLength);
 
 		GetComponent<MoveScript>().speed = 0;
+
+		// update score
+		GameManager.Instance.AddToScore(scoreValue);
+
+		SoundEffectsHelper.Instance.PlayAlienDeathSound();
+
+		Destroy(this.gameObject, explosionLength);
 	}
 }
