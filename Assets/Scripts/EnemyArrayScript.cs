@@ -33,6 +33,19 @@ public class EnemyArrayScript : MonoBehaviour
 	private Vector2 originalStartingPos;
 	public GameObject originalArrayType;
 
+//	// column prefabs which are necessary because apparently NESTED PREFABS AREN'T A THING
+	public GameObject column1;
+	public GameObject column2;
+	public GameObject column3;
+	public GameObject column4;
+	public GameObject column5;
+	public GameObject column6;
+	public GameObject column7;
+	public GameObject column8;
+	public GameObject column9;
+	public GameObject column10;
+	public GameObject column11;
+
 	// Use this for initialization
 	void Start() 
 	{
@@ -174,7 +187,48 @@ public class EnemyArrayScript : MonoBehaviour
 	private void Reset()
 	{
 		GameObject newArray = (GameObject)Instantiate(originalArrayType);
-		newArray.transform.position = originalStartingPos - new Vector2(0, shiftDistance); // new array starts lower
+		newArray.transform.position = originalStartingPos - new Vector2(0, 3 * shiftDistance); // new array starts lower
+		newArray.GetComponent<EnemyArrayScript>().shiftSpeed = 1;
+
+		GameObject child1 = (GameObject)Instantiate(column1);
+		child1.transform.parent = newArray.transform;
+
+		GameObject child2 = (GameObject)Instantiate(column2);
+		child2.transform.parent = newArray.transform;
+
+		GameObject child3 = (GameObject)Instantiate(column3);
+		child3.transform.parent = newArray.transform;
+
+		GameObject child4 = (GameObject)Instantiate(column4);
+		child4.transform.parent = newArray.transform;
+
+		GameObject child5 = (GameObject)Instantiate(column5);
+		child5.transform.parent = newArray.transform;
+
+		GameObject child6 = (GameObject)Instantiate(column6);
+		child6.transform.parent = newArray.transform;
+
+		GameObject child7 = (GameObject)Instantiate(column7);
+		child7.transform.parent = newArray.transform;
+
+		GameObject child8 = (GameObject)Instantiate(column8);
+		child8.transform.parent = newArray.transform;
+
+		GameObject child9 = (GameObject)Instantiate(column9);
+		child9.transform.parent = newArray.transform;
+
+		GameObject child10 = (GameObject)Instantiate(column10);
+		child10.transform.parent = newArray.transform;
+
+		GameObject child11 = (GameObject)Instantiate(column11);
+		child11.transform.parent = newArray.transform;
+
+		foreach (Transform child in newArray.transform)
+		{
+			child.transform.localPosition = child.transform.position;
+			child.transform.localScale = child.transform.lossyScale;
+		}
+
 		Destroy(this.gameObject);
 	}
 }
