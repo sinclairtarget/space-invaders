@@ -113,11 +113,18 @@ public class EnemyArrayScript : MonoBehaviour
 		// pick a random column
 		Transform column = transform.GetChild(UnityEngine.Random.Range(0, transform.childCount));
 
+		// if the column is empty, then there is nothing to fire
+		if (column.childCount == 0)
+		{
+			return;
+		}
+
 		// have the lowest alien fire
 		Transform firingAlien = column.GetChild(0);
 		for (int i = 1; i < column.childCount; i++)
 		{
-			if (column.GetChild(i).position.y < firingAlien.position.y)
+			Transform child = column.GetChild(i);
+			if (child.position.y < firingAlien.position.y)
 			{
 				firingAlien = column.GetChild(i);
 			}
