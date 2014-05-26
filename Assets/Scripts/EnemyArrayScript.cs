@@ -24,6 +24,7 @@ public class EnemyArrayScript : MonoBehaviour
 	private float shiftPeriod;
 	private Vector2 shiftDirection;
 	private bool turning;
+	private int shiftStep; // for sound effects
 
 	private float firingTime;
 	private float maxFiringPeriod;
@@ -34,6 +35,7 @@ public class EnemyArrayScript : MonoBehaviour
 		shiftPeriod = 1 / shiftSpeed;
 		shiftTime = shiftPeriod;
 		shiftDirection = new Vector2(1, 0);
+		shiftStep = 1;
 
 		maxFiringPeriod = 1 / maxFiringRate;
 		firingTime = maxFiringPeriod;
@@ -91,6 +93,15 @@ public class EnemyArrayScript : MonoBehaviour
 
 		// adjust shift period in case shift speed has changed
 		shiftPeriod = 1 / shiftSpeed;
+
+		// play march sound effect
+		SoundEffectsHelper.Instance.PlayMarchSound(shiftStep);
+		shiftStep++;
+
+		if (shiftStep > 4)
+		{
+			shiftStep = 1;
+		}
 	}
 
 	private void Animate()

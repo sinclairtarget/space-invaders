@@ -33,6 +33,8 @@ public class EnemyScript : MonoBehaviour
 		}
 		
 		Destroy(coll.gameObject);
+
+		SoundEffectsHelper.Instance.PlayAlienDeathSound();
 		
 		spriteRenderer.sprite = explosion;
 		Destroy(this.gameObject, explosionLength);

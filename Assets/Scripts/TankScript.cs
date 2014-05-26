@@ -67,6 +67,7 @@ public class TankScript : MonoBehaviour
 
 		dying = true;
 		moveScript.speed = 0;
+		SoundEffectsHelper.Instance.PlayPlayerDeathSound();
 	}
 
 	private void HandleInput()

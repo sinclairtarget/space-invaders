@@ -48,6 +48,12 @@ public class WeaponScript : MonoBehaviour
 
 			// reset cooldown
 			cooldown = firingRate;
+
+			// play shot sound if tank shot
+			if (transform.parent.tag == "Player")
+			{
+				SoundEffectsHelper.Instance.PlayTankFireSound();
+			}
 		}
 	}
 }

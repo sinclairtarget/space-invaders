@@ -11,11 +11,16 @@ public class UFOScript : MonoBehaviour
 	public Sprite explosion;
 	public float explosionLength;
 
+	public float soundPeriod;
+
 	private MoveScript moveScript;
+
+	private float soundTime; 
 
 	void Start()
 	{
 		moveScript = GetComponent<MoveScript>();
+		soundTime = soundPeriod;
 	}
 
 	// Update is called once per frame
@@ -28,6 +33,15 @@ public class UFOScript : MonoBehaviour
 		    (transform.position.x < leftBound && moveScript.direction.x < 0))
 		{
 			Destroy(this.gameObject);
+		}
+
+		soundTime -= Time.deltaTime;
+
+		if (soundTime <= 0)
+		{
+			SoundEffectsHelper.Instance.PlayUFOSound();
+
+			soundTime = soundPeriod;
 		}
 	}
 
